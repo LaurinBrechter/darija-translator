@@ -5,8 +5,11 @@ import { Search } from "lucide-react"
 import { Input } from "@/components/ui/input"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
-import { Toggle } from "@/components/ui/toggle"
-import { Label } from "@/components/ui/label"
+import { LanguageSelect } from "@/components/LanguageSelect"
+import searchAction from "@/actions/query"
+import { Select, SelectContent, SelectItem } from "@/components/ui/select"
+import { WordOptions } from "@/components/WordOptions"
+import { InferSelectModel } from "drizzle-orm"
 
 
 
@@ -26,19 +29,19 @@ const dictionary = [
   }},
 ]
 
-export default async function DarijaDictionary() {
+export default function DarijaDictionary() {
   const [searchTerm, setSearchTerm] = useState("")
-  const [isEnglish, setIsEnglish] = useState(false)
-  const [results, setResults] = useState([])
+  const [language, setLanguage] = useState<'darija' | 'english'>('darija')
+  const [results, setResults] = useState<Awaited<ReturnType<typeof searchAction>>>([])
 
 
 
-  const handleSearch = () => {
-    const searchResults = dictionary.filter(entry => 
-      entry[isEnglish ? "english" : "darija"].toLowerCase().includes(searchTerm.toLowerCase())
-    )
-    setResults(searchResults)
-  }
+  // const handleSearch = () => {
+  //   const searchResults = dictionary.filter(entry => 
+  //     entry[language].toLowerCase().includes(searchTerm.toLowerCase())
+  //   )
+  //   setResults(searchResults)
+  // }
 
   return (
     <div className="container mx-auto p-4 max-w-2xl">
@@ -47,28 +50,24 @@ export default async function DarijaDictionary() {
       <div className="flex items-center space-x-2 mb-4">
         <Input
           type="text"
-          placeholder={`Search in ${isEnglish ? 'English' : 'Darija'}`}
+          placeholder={`Search in ${language}`}
           value={searchTerm}
-          onChange={(e) => setSearchTerm(e.target.value)}
+          onChange={async (e) => {
+            setSearchTerm(e.target.value)
+            // handleSearch()
+            const words = await searchAction(e.target.value, language)
+            setResults(words)
+          }}
           className="flex-grow"
         />
-        <Button onClick={handleSearch}>
+        <LanguageSelect onLanguageChange={setLanguage} />
+        {/* <Button onClick={handleSearch}>
           <Search className="h-4 w-4 mr-2" />
-          Search
-        </Button>
+        </Button> */}
+        
       </div>
-
-      <div className="flex items-center justify-center space-x-2 mb-6">
-        <Label htmlFor="language-toggle">Darija</Label>
-        <Toggle
-          id="language-toggle"
-          pressed={isEnglish}
-          onPressedChange={setIsEnglish}
-        />
-        <Label htmlFor="language-toggle">English</Label>
-      </div>
-
-      {results.map((entry, index) => (
+      <WordOptions searchResults={results} language={language} />
+      {/* {results.map((entry, index) => (
         <Card key={index} className="mb-4">
           <CardHeader>
             <CardTitle>{entry.darija} - {entry.english}</CardTitle>
@@ -92,7 +91,7 @@ export default async function DarijaDictionary() {
             )}
           </CardContent>
         </Card>
-      ))}
+      ))} */}
     </div>
   )
 }

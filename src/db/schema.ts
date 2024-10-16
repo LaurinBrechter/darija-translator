@@ -14,6 +14,7 @@ import { int, sqliteTable, text } from "drizzle-orm/sqlite-core";
 // );
 
 export const wordsTable = sqliteTable("all_words", {
+    id: int(),
     n1: text(),
     n2: text(),
     n3: text(),
