@@ -60,7 +60,7 @@ export default function DarijaDictionary() {
           }}
           className="flex-grow"
         />
-        <LanguageSelect onLanguageChange={setLanguage} />
+        <LanguageSelect onLanguageChange={setLanguage} language={language} />
         {/* <Button onClick={handleSearch}>
           <Search className="h-4 w-4 mr-2" />
         </Button> */}

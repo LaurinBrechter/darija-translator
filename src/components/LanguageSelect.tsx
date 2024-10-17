@@ -19,13 +19,14 @@ enum LanguageOptions {
 
 export function LanguageSelect(props: {
     onLanguageChange: (language: 'darija' | 'english') => void
+    language: 'darija' | 'english'
 }) {
   return (
     <Select onValueChange={
         (value: 'darija' | 'english') => props.onLanguageChange(value)
     }>
       <SelectTrigger className="w-[180px]">
-        <SelectValue placeholder="Select Language" />
+        <SelectValue placeholder="🇲🇦 darija" />
       </SelectTrigger>
       <SelectContent>
         <SelectGroup>
