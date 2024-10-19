@@ -5,16 +5,16 @@ import {
   SelectContent,
   SelectGroup,
   SelectItem,
-  SelectLabel,
+  // SelectLabel,
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select"
  
 
-enum LanguageOptions {
-    Darija = "darija",
-    English = "english",
-}
+// enum LanguageOptions {
+//     Darija = "darija",
+//     English = "english",
+// }
 
 
 export function LanguageSelect(props: {

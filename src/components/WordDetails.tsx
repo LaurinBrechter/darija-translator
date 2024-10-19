@@ -8,7 +8,6 @@ import {
   TableBody,
   TableCaption,
   TableCell,
-  TableFooter,
   TableHead,
   TableHeader,
   TableRow,
@@ -54,7 +53,7 @@ export function WordDetails(props: {
             </TableRow>
           </TableHeader>
           <TableBody className="h-[200px]">
-            {props.examples.map((example, index) => (
+            {props.examples.map((example) => (
               <TableRow key={example.id}>
                 <TableCell className="font-medium">
                 {example.darija?.split(" ").map((word, index) => (
