@@ -5,13 +5,9 @@ import { exampleSents, wordsTable } from "@/db/schema";
 
 import { like, or } from "drizzle-orm";
 import { ScrollArea } from "@/components/ui/scroll-area"
-import { Input } from "@/components/ui/input";
-import { Button } from "@/components/ui/button";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { Toggle } from "@/components/ui/toggle";
-import { Label } from "@/components/ui/label";
 import { WordDetails } from "@/components/WordDetails";
 import searchAction from "@/actions/query";
+import SearchForm from "@/components/SearchForm";
 
 const Chat = async ({
   params,
@@ -35,6 +31,8 @@ const Chat = async ({
   }
 
   return (
+    <>
+    <SearchForm />
     <ScrollArea className="h-[400px] w-[60vw]">
       {words.map((word, index) => {
         return (
@@ -42,6 +40,7 @@ const Chat = async ({
         );
       })}
     </ScrollArea>
+    </>
   );
 };
 
