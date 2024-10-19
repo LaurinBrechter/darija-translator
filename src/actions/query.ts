@@ -21,10 +21,10 @@ export default async function searchAction(word:string, language: 'darija' | 'en
             like(wordsTable.n5, `${word}%`),
             like(wordsTable.n6, `${word}%`),
         )).limit(10);
-        console.log('Getting all users from the database: ', words)
+        // console.log('Getting all users from the database: ', words)
     } else {
         words = await db.select().from(wordsTable).where(like(wordsTable.eng, `${word}%`)).limit(10);
-        console.log('Getting all users from the database: ', words)
+        // console.log('Getting all users from the database: ', words)
     }
 
 

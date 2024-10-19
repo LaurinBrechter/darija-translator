@@ -3,6 +3,18 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { exampleSents } from "@/db/schema";
 import { InferSelectModel } from "drizzle-orm";
 
+import {
+  Table,
+  TableBody,
+  TableCaption,
+  TableCell,
+  TableFooter,
+  TableHead,
+  TableHeader,
+  TableRow,
+} from "@/components/ui/table";
+import { ScrollArea } from "./ui/scroll-area";
+
 export function WordDetails(props: {
   searchResults: Awaited<ReturnType<typeof searchAction>>[0];
   language: "darija" | "english";
@@ -26,16 +38,41 @@ export function WordDetails(props: {
           {props.searchResults.n5 && <li>{props.searchResults.n5}</li>}
           {props.searchResults.n6 && <li>{props.searchResults.n6}</li>}
         </ul>
-        <p>Examples</p>
-        <div className="flex">
-          <ul className="list-disc list-inside">
+        {/* <p>Examples</p> */}
+        <ScrollArea className="h-[200px]">
+
+        
+        <Table>
+      {/* className=""
+      containerClassname="h-fit max-h-80 overflow-y-auto relative"
+    > */}
+          <TableCaption>Some example sentences</TableCaption>
+          <TableHeader>
+            <TableRow>
+              <TableHead >Darija</TableHead>
+              <TableHead>English</TableHead>
+            </TableRow>
+          </TableHeader>
+          <TableBody className="h-[200px]">
             {props.examples.map((example, index) => (
-              <li key={index}>
-                {example.eng} - {example.darija}
-              </li>
+              <TableRow key={example.id}>
+                <TableCell className="font-medium">
+                {example.darija?.split(" ").map((word, index) => (
+                  <span key={index} className="mr-1 hover:bg-slate-300">
+                    <a href={`/darija/${word}`}>{word}</a>
+                  </span>
+                ))}
+                </TableCell>
+                <TableCell>{example.eng?.split(" ").map((word, index) => (
+                  <span key={index} className="mr-1 hover:bg-slate-300">
+                    <a href={`/english/${word}`}>{word}</a>
+                  </span>
+                ))}</TableCell>
+              </TableRow>
             ))}
-          </ul>
-        </div>
+          </TableBody>
+        </Table>
+        </ScrollArea>
         {/* {word.type === "verb" && (
                 <div>
                   <h3 className="font-semibold mb-2">Conjugations:</h3>
