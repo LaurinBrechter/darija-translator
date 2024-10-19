@@ -1,36 +1,34 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
 
-## Getting Started
+## Darija Dictionary/Translator.
 
-First, run the development server:
+- Since I am currently learning some maroccan arabic (aka darija) I decided to build this dictionary/translator app.
+- It is based on the [darija-open-dataset](https://github.com/darija-open-dataset) that contains ~3000 words in darija
+    - The dictionary is not comprehensive and there might be some mistakes as I simply took this dataset as the ground truth
+- additionally, there are around 40,000 example sentences that will be shown when you look up a word.
+    - since the dataset is not comprehensive, the example sentences might contain words that are not in the dictionary itself.
+- the app is mostly aimed at language learners.
+
+
+
+### Features
+
+- search for a word in darija/english and get autocompletions in the other language
+- once you found the word you are looking for, you get all the forms of the word and its example sentences
+
+
+### Technical
+
+- the app is written with nextjs, tailwindcss and shadcn/ui.
+- I am using a simple SQlite database for storing the raw dictionary as the data is static anyways and not sensitive.
+    - this also means that we have no other components that we need to deploy seperately (e.g. a postgres database)
+- all pages for the different words are statically generated at build time and therefore server-site generated (SSG)
+- you can simply deploy this app for free using vercel
+- you can also run deploy it yourself by running (given that you have installed nodejs and npm)
 
 ```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+npm install
+
+npm run build
+
+npm run start
 ```
-
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
-
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
-
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
-
-## Learn More
-
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
